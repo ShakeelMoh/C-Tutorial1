@@ -4,9 +4,10 @@
 #include <iostream>
 #include "StudentDatabase.h"
 #include <cstdlib>
-#include <fstream> //For reading textfile
+#include <fstream> //For reading/writing textfile
 #include <sstream> //for seperating a string
 #include <string> //for seperating string
+#include <iomanip> //for using setw
 //#include <vector> //vector data structure use
 
 
@@ -19,7 +20,7 @@ void STUDENT_NO::create_vector(vector<studentRecord>& studentRecords){ //define 
    
    
    //read from textfile and fill vector
-   cout << "function createVector() called" << "\n\n";
+   //cout << "function createVector() called" << "\n\n";
    ifstream inFile;
    inFile.open("StudentDatabase.txt");
 
@@ -33,20 +34,35 @@ void STUDENT_NO::create_vector(vector<studentRecord>& studentRecords){ //define 
    string surname;
    string classRecord;
    
+   string temp; //stores temp first two lines we need to skip
+   string temp2;
    studentRecord s; //declare the struct that we are going to use
-      
+   
+   int count = 0; //counter to check line number
+   
+   //getline(inFile,  temp); //skip line
+   //cout << "skipping line: " << temp;
+   //getline(inFile,  temp2); //skip line #2
+   
    while (inFile.peek() != EOF){ //line is student record
       
-      //cout << line << endl; //prints the line
-      inFile >> number >> name >> surname;
-      getline(inFile,classRecord); //gets rest of line
-      s.studentNumber = number;
-      s.studentName = name;
-      s.studentSurname = surname;
-      s.classRecord = classRecord;
-      //print_studentRecord(s); //print for confirmation purposes
-      //cout << "adding to vector..\n\n";
-      studentRecords.push_back(s); //adds student to vector
+      count++;
+      if (count > 2){
+         //cout << line << endl; //prints the line
+         inFile >> number >> name >> surname;
+         getline(inFile,classRecord); //gets rest of line
+         s.studentNumber = number;
+         s.studentName = name;
+         s.studentSurname = surname;
+         s.classRecord = classRecord;
+         //print_studentRecord(s); //print for confirmation purposes
+         //cout << "adding to vector..\n\n";
+         studentRecords.push_back(s); //adds student to vector
+      } else {
+         getline(inFile,  temp); //skip line
+      }
+      
+      
       
       
    }
@@ -68,15 +84,16 @@ void STUDENT_NO::add_student(std::string name, string surname, string studentNum
    
    sr.push_back(student);
    
-   STUDENT_NO::print_studentRecord(student); //print for confirmation purposes
+   //STUDENT_NO::print_studentRecord(student); //print for confirmation purposes
    //we want to add the student to the vector here...
 }
 
 //Prints the entered details for confirmation
-string STUDENT_NO::print_studentRecord(studentRecord sr){
+void STUDENT_NO::print_studentRecord(studentRecord sr){
 
    //cout << "Contains student with student number:" << sr.studentNumber << "\n\n"; 
-   return sr.studentNumber + " " + sr.studentName + " " + sr.studentSurname + " " + sr.classRecord;
+   //return sr.studentNumber + "\t\t" + sr.studentName + "\t\t" + sr.studentSurname + "\t\t" + sr.classRecord;
+   cout << std::left << std::setw(25) << sr.studentNumber << std::setw(25) << sr.studentName << std::setw(25) << sr.studentSurname << std::setw(25) << sr.classRecord << "\n";
    
 }
 
@@ -105,8 +122,7 @@ void STUDENT_NO::read_database(vector<studentRecord>& sr){
    cout << "\n";
    cout << "\nfunction readDatabase() called" << "\n";
    for (int i=0; i< sr.size();i++){
-      
-      cout << STUDENT_NO::print_studentRecord(sr[i]) + "\n";
+      STUDENT_NO::print_studentRecord(sr[i]);
       
    }
    cout << "\n";
@@ -115,9 +131,26 @@ void STUDENT_NO::read_database(vector<studentRecord>& sr){
 
 
 //going to write to a textfile
-void STUDENT_NO::save_database(){
+void STUDENT_NO::save_database(vector<studentRecord>& sr){
 
    cout << "function saveDatabase() called" << "\n";
+   
+   ofstream outFile;
+   outFile.open("StudentDatabase.txt");
+
+   if (!outFile){ 
+      cerr << "Unable to open file StudentDatabase.txt\n";
+      
+   }
+   
+   outFile << std::left << std::setw(25) << "STUDENT NUMBER" << std::setw(25) << "NAME" << std::setw(25) << "SURNAME" << std::setw(25) << "GRADES";
+   outFile << std::left << "-----------------------------------------------------------------------------------------\n";
+   
+   for(int i = 0; i < sr.size(); i++){
+      outFile << std::setw(25) << sr[i].studentNumber << std::setw(25) << sr[i].studentName << std::setw(25) << sr[i].studentSurname << std::setw(25) << sr[i].classRecord << "\n";
+   }
+   
+   outFile.close();
 
 }
 
@@ -159,7 +192,7 @@ void STUDENT_NO::display_student_data(vector<studentRecord>& sr){
 
 void STUDENT_NO::grade_student(vector<studentRecord>& sr){
 
-   cout << "function gradeStudent() called" << "\n";
+   cout << "function gradeStudent() called\n";
 
    string studentNumber; //declare student number variable
    
@@ -194,7 +227,7 @@ void STUDENT_NO::grade_student(vector<studentRecord>& sr){
          } 
          
          float average = total/noValues;
-         cout << "Average: " << average << "\n";
+         cout << "Average: " << average << "\n\n";
          flag = true;
       }
       

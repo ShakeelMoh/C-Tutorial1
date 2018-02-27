@@ -11,12 +11,12 @@ int main (void)
       
       //we need to create the vector for use later
       vector<STUDENT_NO::studentRecord> sr;
-      
-      STUDENT_NO::create_vector(sr);
+      STUDENT_NO::create_vector(sr);//must recreate vector because of changes that couldve occured
+      //STUDENT_NO::create_vector(sr);
       
       string selection;
       for (;;){
-      
+         
          cout << "1: Add student\n";
          cout << "2: Read database\n";
          cout << "3: Save Database\n";
@@ -29,6 +29,7 @@ int main (void)
          
        
          if (selection == "1"){
+            
             string name;
             string surname;
             string number;
@@ -62,7 +63,7 @@ int main (void)
          } else if (selection == "2"){
             STUDENT_NO::read_database(sr);
          }else if (selection == "3"){
-            STUDENT_NO::save_database();
+            STUDENT_NO::save_database(sr);
          }else if (selection == "4"){
             STUDENT_NO::display_student_data(sr);
          }else if (selection == "5"){
