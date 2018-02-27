@@ -7,7 +7,7 @@
 
 using namespace std;
 
-namespace STUDENT_NO{ //this should be my student number
+namespace MHMSHA056{ //this should be my student number
    //Define method headers here
    
    //StudentRecord struct must be instantiated (like a student object)

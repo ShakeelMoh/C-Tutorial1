@@ -13,9 +13,9 @@
 
 //instantiate the vector array with contents of text file
 
-//std::vector<STUDENT_NO::studentRecord> studentRecords;
+//std::vector<MHMSHA056::studentRecord> studentRecords;
 
-void STUDENT_NO::create_vector(vector<studentRecord>& studentRecords){ //define create vector method fills vector for read/write
+void MHMSHA056::create_vector(vector<studentRecord>& studentRecords){ //define create vector method fills vector for read/write
      
    
    
@@ -47,7 +47,7 @@ void STUDENT_NO::create_vector(vector<studentRecord>& studentRecords){ //define 
    while (inFile.peek() != EOF){ //line is student record
       
       count++;
-      if (count > 2){
+      if (count > 1){
          //cout << line << endl; //prints the line
          inFile >> number >> name >> surname;
          getline(inFile,classRecord); //gets rest of line
@@ -72,7 +72,7 @@ void STUDENT_NO::create_vector(vector<studentRecord>& studentRecords){ //define 
 }
 
 //create new student
-void STUDENT_NO::add_student(std::string name, string surname, string studentNumber, string classRecord, vector<studentRecord>& sr){
+void MHMSHA056::add_student(std::string name, string surname, string studentNumber, string classRecord, vector<studentRecord>& sr){
 
    cout << "\nfunction addStudent() called" << "\n";
    studentRecord student;  //add an instance of the studentRecord struct
@@ -84,12 +84,12 @@ void STUDENT_NO::add_student(std::string name, string surname, string studentNum
    
    sr.push_back(student);
    
-   //STUDENT_NO::print_studentRecord(student); //print for confirmation purposes
+   //MHMSHA056::print_studentRecord(student); //print for confirmation purposes
    //we want to add the student to the vector here...
 }
 
 //Prints the entered details for confirmation
-void STUDENT_NO::print_studentRecord(studentRecord sr){
+void MHMSHA056::print_studentRecord(studentRecord sr){
 
    //cout << "Contains student with student number:" << sr.studentNumber << "\n\n"; 
    //return sr.studentNumber + "\t\t" + sr.studentName + "\t\t" + sr.studentSurname + "\t\t" + sr.classRecord;
@@ -99,7 +99,7 @@ void STUDENT_NO::print_studentRecord(studentRecord sr){
 
 
 //check if student exists
-bool STUDENT_NO::existing_student(std::string studentNumber, vector<studentRecord> sr){
+bool MHMSHA056::existing_student(std::string studentNumber, vector<studentRecord> sr){
 
    cout << "\nChecking for existing student..." << "\n";
    
@@ -115,14 +115,14 @@ bool STUDENT_NO::existing_student(std::string studentNumber, vector<studentRecor
 
 
 
-void STUDENT_NO::read_database(vector<studentRecord>& sr){
+void MHMSHA056::read_database(vector<studentRecord>& sr){
 //vector should be filled with textfile data now
 //Print the contents of the vector
    //vector<studentRecord> studentRecords;
    cout << "\n";
    cout << "\nfunction readDatabase() called" << "\n";
    for (int i=0; i< sr.size();i++){
-      STUDENT_NO::print_studentRecord(sr[i]);
+      MHMSHA056::print_studentRecord(sr[i]);
       
    }
    cout << "\n";
@@ -131,12 +131,12 @@ void STUDENT_NO::read_database(vector<studentRecord>& sr){
 
 
 //going to write to a textfile
-void STUDENT_NO::save_database(vector<studentRecord>& sr){
+void MHMSHA056::save_database(vector<studentRecord>& sr){
 
    cout << "function saveDatabase() called" << "\n";
    
    ofstream outFile;
-   outFile.open("StudentDatabase.txt");
+   outFile.open("StudentDatabase.txt");  
 
    if (!outFile){ 
       cerr << "Unable to open file StudentDatabase.txt\n";
@@ -156,7 +156,7 @@ void STUDENT_NO::save_database(vector<studentRecord>& sr){
 
 
 
-void STUDENT_NO::display_student_data(vector<studentRecord>& sr){
+void MHMSHA056::display_student_data(vector<studentRecord>& sr){
 
    cout << "function displayStudentData() called" << "\n\n";
    
@@ -190,7 +190,7 @@ void STUDENT_NO::display_student_data(vector<studentRecord>& sr){
 
 
 
-void STUDENT_NO::grade_student(vector<studentRecord>& sr){
+void MHMSHA056::grade_student(vector<studentRecord>& sr){
 
    cout << "function gradeStudent() called\n";
 

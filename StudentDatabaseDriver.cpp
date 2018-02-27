@@ -10,9 +10,9 @@ int main (void)
       
       
       //we need to create the vector for use later
-      vector<STUDENT_NO::studentRecord> sr;
-      STUDENT_NO::create_vector(sr);//must recreate vector because of changes that couldve occured
-      //STUDENT_NO::create_vector(sr);
+      vector<MHMSHA056::studentRecord> sr;
+      MHMSHA056::create_vector(sr);//must recreate vector because of changes that couldve occured
+      //MHMSHA056::create_vector(sr);
       
       string selection;
       for (;;){
@@ -41,7 +41,7 @@ int main (void)
                cout << "\nEnter student number" << endl;
                cin >> number;
                
-               if (STUDENT_NO::existing_student(number, sr)){
+               if (MHMSHA056::existing_student(number, sr)){
                } else {
                   flag = false;
                }
@@ -58,16 +58,16 @@ int main (void)
         
             
             
-            STUDENT_NO::add_student(name, surname, number, record, sr);
+            MHMSHA056::add_student(name, surname, number, record, sr);
             selection.clear();
          } else if (selection == "2"){
-            STUDENT_NO::read_database(sr);
+            MHMSHA056::read_database(sr);
          }else if (selection == "3"){
-            STUDENT_NO::save_database(sr);
+            MHMSHA056::save_database(sr);
          }else if (selection == "4"){
-            STUDENT_NO::display_student_data(sr);
+            MHMSHA056::display_student_data(sr);
          }else if (selection == "5"){
-            STUDENT_NO::grade_student(sr);
+            MHMSHA056::grade_student(sr);
          }
    	
       
